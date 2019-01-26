@@ -15,6 +15,7 @@ class HomePage(TestBase):
     def __init__(self):
         super(HomePage, self).__init__()
         driver = self.driver
+        self._prop = self.dic_prop
 
         self.log.debug("Home page initialization")
         self._signInButton = driver.find_element(By.XPATH, "//div[@class='normal ng-star-inserted']//a[@title='Sign In'][contains(text(),'Sign In')]")
@@ -29,10 +30,10 @@ class HomePage(TestBase):
         self._signInButton.click()
         self.log.debug("Sign in button verified - {}".format(str(self._signInButton)))
         self.log.debug("Loading SignInPage...")
-        return SignInPage
+        return SignInPage(self.driver, self._prop)
 
     def clickToSignUp(self):
         self._signUpButton.click()
         self.log.debug("Sign un button verified - {}".format(str(self._signUpButton)))
         self.log.debug("Loading SignUpPage...")
-        return SignUpPage
+        return SignUpPage(self.driver, self._prop)
