@@ -17,7 +17,7 @@ def suite():
     suite.addTest(SignInPageTest("test_signInPageTitleTest"))
     suite.addTest(SignInPageTest("test_verifySignInToUdacity"))
     suite.addTest(SignUpPageTest("test_signUpPageTitleTest"))
-    suite.addTest(SignUpPageTest("test_verifySignUpToUdacity"))
+    # suite.addTest(SignUpPageTest("test_verifySignUpToUdacity"))
 
     return suite
 

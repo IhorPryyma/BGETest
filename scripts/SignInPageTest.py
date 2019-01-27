@@ -5,7 +5,6 @@ import util.Logger as cl
 import logging
 
 from pages.HomePage import HomePage
-from pages.SignInPage import SignInPage
 from pages.ProfilePage import ProfilePage
 
 
@@ -32,3 +31,6 @@ class SignInPageTest(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
+
+if __name__ == "__main__":
+    unittest.main()

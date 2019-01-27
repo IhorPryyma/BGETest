@@ -8,7 +8,7 @@ from util.UserGenerator import UserGenerator
 class SignUpPage(TestBase):
 
     def __init__(self, driver, prop):
-        # super(SignInPage, self).__init__()
+        self.log.debug("SignUp page initialization")
         self.driver = driver
         self.dic_prop = prop
         self._newUser = UserGenerator()
@@ -22,6 +22,7 @@ class SignUpPage(TestBase):
         self._title = self.driver.title
 
     def validateSignUpPageTitle(self):
+        self.log.debug("Page title successfully found - {}".format(self._title))
         return self._title
 
     def signUpToUdacity(self):
@@ -32,6 +33,7 @@ class SignUpPage(TestBase):
         self._password.send_keys(self._newUser.generatrPassword())
         self._confirmPassword.send_keys(self._newUser.generatrPassword())
         self._signUpButton.click()
+        self.log.debug("Loading Profile page...")
         return ProfilePage(self.driver, self.dic_prop)
 
     def _clearTextFields(self):
@@ -40,3 +42,4 @@ class SignUpPage(TestBase):
         self._email.clear()
         self._password.clear()
         self._confirmPassword.clear()
+        self.log.debug("Registration textfields are successfully cleared.")
