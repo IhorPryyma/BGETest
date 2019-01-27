@@ -3,8 +3,12 @@ from selenium.webdriver.common.by import By
 from base.TestBase import TestBase
 from pages.ProfilePage import ProfilePage
 
+import util.Logger as cl
+import logging
 
 class SignInPage(TestBase):
+
+    log = cl.customLogger(logging.DEBUG)
 
     def __init__(self, driver, prop):
         self.log.debug("SignIn page initialization")

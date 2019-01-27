@@ -6,6 +6,7 @@ import logging
 
 from pages.HomePage import HomePage
 from pages.ProfilePage import ProfilePage
+from util.ScreenShot import ScreenShot
 
 
 class SignInPageTest(unittest.TestCase):
@@ -20,6 +21,10 @@ class SignInPageTest(unittest.TestCase):
         self.longMessage = False
         self.log.debug(self.id())
 
+        self.screenshot = ScreenShot(self.driver)
+        self.screenshotName = "./results/{}.png".format(str(self.id()).split('.')[2])
+
+
     def test_signInPageTitleTest(self):
         title = self.signInPage.validateSignInPageTitle()
         self.assertEqual(title, "Sign In - Udacity")
@@ -27,9 +32,12 @@ class SignInPageTest(unittest.TestCase):
     def test_verifySignInToUdacity(self):
         profile_obj = self.signInPage.signInToUdacity()
         time.sleep(10)
+        self.screenshot.takeScreenShot(self.screenshotName)
+
         self.assertIsInstance(profile_obj, ProfilePage)
 
     def tearDown(self):
+        self.driver.close()
         self.driver.quit()
 
 if __name__ == "__main__":

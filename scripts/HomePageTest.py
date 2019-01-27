@@ -6,6 +6,7 @@ import logging
 from pages.SignUpPage import SignUpPage
 from pages.HomePage import HomePage
 from pages.SignInPage import SignInPage
+from util.ScreenShot import ScreenShot
 
 
 class HomePageTest(unittest.TestCase):
@@ -13,10 +14,14 @@ class HomePageTest(unittest.TestCase):
     log = cl.customLogger(logging.DEBUG)
 
     def setUp(self):
+
         self.homePage = HomePage()
         self.driver = self.homePage.driver
         self.longMessage = False
         self.log.debug(self.id())
+
+        self.screenshot = ScreenShot(self.driver)
+        self.screenshotName = "./results/{}.png".format(str(self.id()).split('.')[3])
 
     def test_homePageTitleTest(self):
         title = self.homePage.validatHomePageTitle()
@@ -24,6 +29,7 @@ class HomePageTest(unittest.TestCase):
 
     def test_verifySignInButton(self):
         login_obj = self.homePage.clickToSignIn()
+        self.screenshot.takeScreenShot(self.screenshotName)
         self.assertIsInstance(login_obj, SignInPage, msg="test_validateSignInButton Failed")
 
     def test_verifySignUpButton(self):
@@ -31,6 +37,7 @@ class HomePageTest(unittest.TestCase):
         self.assertIsInstance(register_obj, SignUpPage, msg="test_validateSignUpButton Failed")
 
     def tearDown(self):
+        self.driver.close()
         self.driver.quit()
 
 

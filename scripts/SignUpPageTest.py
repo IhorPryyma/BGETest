@@ -6,6 +6,7 @@ import logging
 
 from pages.HomePage import HomePage
 from pages.ProfilePage import ProfilePage
+from util.ScreenShot import ScreenShot
 
 
 class SignUpPageTest(unittest.TestCase):
@@ -20,6 +21,10 @@ class SignUpPageTest(unittest.TestCase):
         self.longMessage = False
         self.log.debug(self.id())
 
+        self.screenshot = ScreenShot(self.driver)
+        self.screenshotName = "./results/{}.png".format(str(self.id()).split('.')[2])
+
+
     def test_signUpPageTitleTest(self):
         title = self.signUpPage.validateSignUpPageTitle()
         self.assertEqual(title, "Sign Up - Udacity", msg="test_signUpPageTitleTest Failed")
@@ -27,7 +32,10 @@ class SignUpPageTest(unittest.TestCase):
     def test_verifySignUpToUdacity(self):
         profile_obj = self.signUpPage.signUpToUdacity()
         time.sleep(10)
+        self.screenshot.takeScreenShot(self.screenshotName)
+
         self.assertIsInstance(profile_obj, ProfilePage, msg="test_validateSignUpToUdacity Failed")
 
     def tearDown(self):
+        self.driver.close()
         self.driver.quit()

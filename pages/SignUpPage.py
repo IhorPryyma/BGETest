@@ -4,8 +4,14 @@ from base.TestBase import TestBase
 from pages.ProfilePage import ProfilePage
 from util.UserGenerator import UserGenerator
 
+import util.Logger as cl
+import logging
+
 
 class SignUpPage(TestBase):
+
+    log = cl.customLogger(logging.DEBUG)
+
 
     def __init__(self, driver, prop):
         self.log.debug("SignUp page initialization")
