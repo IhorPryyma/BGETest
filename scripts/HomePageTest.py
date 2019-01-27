@@ -21,7 +21,11 @@ class HomePageTest(unittest.TestCase):
         self.log.debug(self.id())
 
         self.screenshot = ScreenShot(self.driver)
-        self.screenshotName = "./results/{}.png".format(str(self.id()).split('.')[3])
+        try:
+            self.screenshotName = "./results/{}.png".format(str(self.id()).split('.')[3])
+        except Exception:
+            self.screenshotName = "./results/{}.png".format(str(self.id()).split('.')[2])
+
 
     def test_homePageTitleTest(self):
         title = self.homePage.validatHomePageTitle()
@@ -34,6 +38,7 @@ class HomePageTest(unittest.TestCase):
 
     def test_verifySignUpButton(self):
         register_obj = self.homePage.clickToSignUp()
+        self.screenshot.takeScreenShot(self.screenshotName)
         self.assertIsInstance(register_obj, SignUpPage, msg="test_validateSignUpButton Failed")
 
     def tearDown(self):

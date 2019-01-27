@@ -14,13 +14,7 @@ def suite():
     suite = unittest.TestSuite()
     suite.addTest(HomePageTest("test_homePageTitleTest"))
     suite.addTest(HomePageTest("test_verifySignInButton"))
-    suite.addTest(HomePageTest("test_verifySignUpButton"))
-    suite.addTest(SignInPageTest("test_signInPageTitleTest"))
     suite.addTest(SignInPageTest("test_verifySignInToUdacity"))
-    suite.addTest(SignUpPageTest("test_signUpPageTitleTest"))
-    suite.addTest(SignUpPageTest("test_verifySignUpToUdacity"))
-    suite.addTest(ProfilePageTest("test_profilePageTitleTest"))
-    suite.addTest(ProfilePageTest("test_verifyElementsOfProfilePage"))
     suite.addTest(ProfilePageTest("test_verifyLogout"))
 
     return suite

@@ -31,7 +31,7 @@ class SignInPageTest(unittest.TestCase):
 
     def test_verifySignInToUdacity(self):
         profile_obj = self.signInPage.signInToUdacity()
-        time.sleep(10)
+        time.sleep(6)
         self.screenshot.takeScreenShot(self.screenshotName)
 
         self.assertIsInstance(profile_obj, ProfilePage)

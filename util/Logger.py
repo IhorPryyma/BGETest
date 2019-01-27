@@ -9,7 +9,8 @@ def customLogger(logLevel=logging.DEBUG):
 
     logger.setLevel(logging.DEBUG)
 
-    fileHandler = logging.FileHandler("./results/udacity-automation.log", mode='w')
+    # fileHandler = logging.FileHandler("./results/udacity-automation.log", mode='w')
+    fileHandler = logging.FileHandler("udacity-automation.log", mode='w')
     fileHandler.setLevel(logLevel)
 
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s: %(message)s',
