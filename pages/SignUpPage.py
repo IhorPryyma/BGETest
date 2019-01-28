@@ -53,7 +53,7 @@ class SignUpPage(TestBase):
     def setPassword(self, password):
         self._password.send_keys(password)
 
-    def serConfirmPassword(self, password):
+    def setConfirmPassword(self, password):
         self._confirmPassword.send_keys(password)
 
     def clickSubmitButton(self):
@@ -66,3 +66,7 @@ class SignUpPage(TestBase):
         self._password.clear()
         self._confirmPassword.clear()
         self.log.debug("Registration textfields are successfully cleared.")
+
+    def invalidRegistrationMessage(self):
+        return self.driver.find_element(By.XPATH, "//div[contains(@class,'alert--error--3iAkS alert--_alert--1gt-I')]").text
+

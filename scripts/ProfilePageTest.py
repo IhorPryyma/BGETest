@@ -1,35 +1,27 @@
 import time
 import unittest
 
+from selenium.common.exceptions import StaleElementReferenceException
+
 import util.Logger as cl
 import logging
 
-from pages.HomePage import HomePage
-from util.ScreenShot import ScreenShot
+from base.EnvironmentSetup import EnvironmentSetup
+from base.PageFactory import PageFactory
 
 
-class ProfilePageTest(unittest.TestCase):
+class ProfilePageTest(EnvironmentSetup):
 
     log = cl.customLogger(logging.DEBUG)
 
     def setUp(self):
-        self.homePage = HomePage()
-        self.driver = self.homePage.driver
-        prop = self.homePage.dic_prop
-        self.signInPage = self.homePage.clickToSignIn()
-        time.sleep(2)
-        self.profilePage = self.signInPage.signInToUdacity()
-        time.sleep(5)
-        self.longMessage = False
-        self.log.debug(self.id())
+        super().setUp()
+        page_obj = PageFactory()
+        self.profilePage = page_obj.createPage("profile", self.driver, self.dic_prop)
 
-        self.screenshot = ScreenShot(self.driver)
-        self.screenshotName = "./results/{}.png".format(str(self.id()).split('.')[3])
-
-
-    def test_profilePageTitleTest(self):
-        title = self.profilePage.validateProfileTitle()
-        self.assertEqual(title, "Home - Udacity", msg="test_profilePageTitleTest Failed")
+    def test_verifyProfilePageTitle(self):
+        title = self.profilePage.validateProfilePageTitle()
+        self.assertEqual(title, "Home - Udacity", msg="test_verifyProfilePageTitle Failed")
 
     def test_verifyElementsOfProfilePage(self):
         self.screenshot.takeScreenShot(self.screenshotName)
@@ -45,13 +37,8 @@ class ProfilePageTest(unittest.TestCase):
         self.profilePage.validateLogout()
         self.screenshot.takeScreenShot(self.screenshotName)
         time.sleep(2)
-        self.assertEqual(self.homePage.validatHomePageTitle(), "Udacity - Free Online Classes & Nanodegrees | Udacity"
-                         , msg="Something went wrong with logout!!"
-                               ":: test_verifyLogout Failed")
-
-    def tearDown(self):
-        self.driver.close()
-        self.driver.quit()
+        with self.assertRaises(StaleElementReferenceException):
+            self.profilePage.getHomeHeader().is_displayed()
 
 
 if __name__ == "__main__":

@@ -12,10 +12,9 @@ log = cl.customLogger(logging.DEBUG)
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(HomePageTest("test_homePageTitleTest"))
-    suite.addTest(HomePageTest("test_verifySignInButton"))
-    suite.addTest(SignInPageTest("test_verifySignInToUdacity"))
+    suite.addTest(SignInPageTest("test_verifyValidSignIn"))
     suite.addTest(ProfilePageTest("test_verifyLogout"))
+    suite.addTest(SignUpPageTest("test_verifyValidSignUp"))
 
     return suite
 
