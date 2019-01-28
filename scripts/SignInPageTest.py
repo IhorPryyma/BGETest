@@ -1,44 +1,44 @@
 import time
 import unittest
 
+from selenium.common.exceptions import NoSuchElementException
+
 import util.Logger as cl
 import logging
 
-from pages.HomePage import HomePage
-from pages.ProfilePage import ProfilePage
-from util.ScreenShot import ScreenShot
+from base.EnvironmentSetup import EnvironmentSetup
+from base.PageFactory import PageFactory
 
 
-class SignInPageTest(unittest.TestCase):
+class SignInPageTest(EnvironmentSetup):
 
     log = cl.customLogger(logging.DEBUG)
 
     def setUp(self):
-        self.homePage = HomePage()
-        self.driver = self.homePage.driver
-        prop = self.homePage.dic_prop
-        self.signInPage = self.homePage.clickToSignIn()
-        self.longMessage = False
-        self.log.debug(self.id())
+        super().setUp()
+        page_obj = PageFactory()
+        self.signInPage = page_obj.createPage("signin", self.driver, self.dic_prop)
 
-        self.screenshot = ScreenShot(self.driver)
-        self.screenshotName = "./results/{}.png".format(str(self.id()).split('.')[2])
-
-
-    def test_signInPageTitleTest(self):
+    def test_verifySignInPageTitle(self):
         title = self.signInPage.validateSignInPageTitle()
-        self.assertEqual(title, "Sign In - Udacity")
+        self.assertEqual(title, "Sign In - Udacity", msg="test_verifySignInPageTitle Failed")
 
-    def test_verifySignInToUdacity(self):
-        profile_obj = self.signInPage.signInToUdacity()
-        time.sleep(6)
+    def test_verifyValidSignIn(self):
+        self.signInPage.signInToUdacity()
+        with self.assertRaises(NoSuchElementException, msg="test_verifyValidSignIn Failed"):
+            time.sleep(3)
+            self.screenshot.takeScreenShot(self.screenshotName)
+            self.signInPage.invalidSignInMessage()
+
+    def test_verifyInvalidSignIn(self):
+        self.signInPage.setEmail(self.dic_prop.get("invalid_email", "unknown"))
+        self.signInPage.setPassword(self.dic_prop.get("invalid_password", "unknown"))
+        self.signInPage.clickSubmitButton()
+        time.sleep(5)
         self.screenshot.takeScreenShot(self.screenshotName)
+        self.assertEqual(self.signInPage.invalidSignInMessage(), "The email or password you entered is invalid",
+                         msg="test_verifyInvalidSignIn Failed")
 
-        self.assertIsInstance(profile_obj, ProfilePage)
-
-    def tearDown(self):
-        self.driver.close()
-        self.driver.quit()
 
 if __name__ == "__main__":
     unittest.main()

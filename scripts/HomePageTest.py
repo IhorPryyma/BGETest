@@ -3,47 +3,38 @@ import unittest
 import util.Logger as cl
 import logging
 
+from base.EnvironmentSetup import EnvironmentSetup
+from base.PageFactory import PageFactory
 from pages.SignUpPage import SignUpPage
-from pages.HomePage import HomePage
 from pages.SignInPage import SignInPage
-from util.ScreenShot import ScreenShot
 
 
-class HomePageTest(unittest.TestCase):
+class HomePageTest(EnvironmentSetup):
 
     log = cl.customLogger(logging.DEBUG)
 
     def setUp(self):
+        super().setUp()
+        page_obj = PageFactory()
+        self.homePage = page_obj.createPage("home", self.driver, self.dic_prop)
 
-        self.homePage = HomePage()
-        self.driver = self.homePage.driver
-        self.longMessage = False
-        self.log.debug(self.id())
-
-        self.screenshot = ScreenShot(self.driver)
-        try:
-            self.screenshotName = "./results/{}.png".format(str(self.id()).split('.')[3])
-        except Exception:
-            self.screenshotName = "./results/{}.png".format(str(self.id()).split('.')[2])
-
-
-    def test_homePageTitleTest(self):
+    def test_verifyHomePageTitle(self):
         title = self.homePage.validatHomePageTitle()
-        self.assertEqual(title, "Udacity - Free Online Classes & Nanodegrees | Udacity", msg="test_homePageTitleTest Failed")
+        self.assertEqual(title, "Udacity - Free Online Classes & Nanodegrees | Udacity", msg="test_verifyHomePageTitle Failed")
+
+    def test_verifySignInIsDisplayed(self):
+        self.assertTrue(self.homePage.getSignIn().is_displayed(), msg="test_verifySignInIsDisplayed Failed")
+
+    def test_verifySignUpIsDisplayed(self):
+        self.assertTrue(self.homePage.getSignUp().is_displayed(), msg="test_verifySignUpIsDisplayed Failed")
 
     def test_verifySignInButton(self):
-        login_obj = self.homePage.clickToSignIn()
-        self.screenshot.takeScreenShot(self.screenshotName)
-        self.assertIsInstance(login_obj, SignInPage, msg="test_validateSignInButton Failed")
+        login = self.homePage.clickToSignIn()
+        self.assertIsInstance(login, SignInPage, msg="test_verifySignInButton Failed")
 
     def test_verifySignUpButton(self):
-        register_obj = self.homePage.clickToSignUp()
-        self.screenshot.takeScreenShot(self.screenshotName)
-        self.assertIsInstance(register_obj, SignUpPage, msg="test_validateSignUpButton Failed")
-
-    def tearDown(self):
-        self.driver.close()
-        self.driver.quit()
+        register = self.homePage.clickToSignUp()
+        self.assertIsInstance(register, SignUpPage, msg="test_verifySignUpButton Failed")
 
 
 if __name__ == "__main__":
