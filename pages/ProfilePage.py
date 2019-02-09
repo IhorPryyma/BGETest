@@ -14,7 +14,7 @@ class ProfilePage(TestBase):
     def __init__(self, driver, dict_prop):
         super(ProfilePage, self).__init__(driver, dict_prop)
         self.log.debug("Profile page initialization")
-        time.sleep(5)
+        time.sleep(2)
         self._home = self.driver.find_element(By.XPATH, "//a[@title='Home']")
         self._catalog = self.driver.find_element(By.XPATH, "//a[@title='Catalog']")
         self._settings = self.driver.find_element(By.XPATH, "//a[@title='Settings']")

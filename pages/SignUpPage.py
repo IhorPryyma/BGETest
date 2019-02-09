@@ -23,7 +23,7 @@ class SignUpPage(TestBase):
         self._email = driver.find_element(By.XPATH, "//input[@placeholder='Email Address']")
         self._password = driver.find_element(By.XPATH, "//input[@placeholder='Password']")
         self._confirmPassword = driver.find_element(By.XPATH, "//input[@placeholder='Confirm Password']")
-        self._signUpButton = driver.find_element(By.XPATH, "//div[@class='tabbed-pane--content--2o3OQ']//div//div//div//button[@type='button'][contains(text(),'Sign Up')]")
+        self._signUpButton = driver.find_element(By.XPATH, "//div[@class='tabbed-pane_content__2C5RM']//div//div//div//button[@type='button'][contains(text(),'Sign Up')]")
         self._title = driver.title
 
     def validateSignUpPageTitle(self):
@@ -68,5 +68,5 @@ class SignUpPage(TestBase):
         self.log.debug("Registration textfields are successfully cleared.")
 
     def invalidRegistrationMessage(self):
-        return self.driver.find_element(By.XPATH, "//div[contains(@class,'alert--error--3iAkS alert--_alert--1gt-I')]").text
+        return self.driver.find_element(By.XPATH, "//div[contains(@class,'alert_error__2FgfU alert__alert__1lOTi ')]").text
 

@@ -28,7 +28,8 @@ class EnvironmentSetup(unittest.TestCase):
             self.log.error("config.properties file not found!!!")
             raise ValueError("There is no config.properties file in the project directory" + str(err))
 
-        browserName = self.dic_prop.get("browser")
+        browserName = self.dic_prop.get("browser", "chrome")
+
         if browserName.lower() == "firefox":
             self.driver = webdriver.Firefox()
             self.log.debug("Object for firefox is created - " + str(self.driver))
@@ -58,7 +59,6 @@ class EnvironmentSetup(unittest.TestCase):
             self.screenshotName = "./results/{}.png".format(str(self.id()).split('.')[3])
         except IndexError:
             self.screenshotName = "./results/{}.png".format(str(self.id()).split('.')[2])
-
 
     def tearDown(self):
         if self.driver is not None:

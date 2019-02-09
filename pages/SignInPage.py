@@ -20,7 +20,7 @@ class SignInPage(TestBase):
 
         self._emailTextField = driver.find_element(By.XPATH, "//input[@placeholder='Email Address']")
         self._passwordTextField = driver.find_element(By.XPATH, "//input[@placeholder='Password']")
-        self._submitButton = driver.find_element(By.XPATH, "//div[@class='tabbed-pane--content--2o3OQ']//div//div//div//button[@type='button'][contains(text(),'Sign In')]")
+        self._submitButton = driver.find_element(By.XPATH, "//div[@class='tabbed-pane_content__2C5RM']//div//div//div//button[@type='button'][contains(text(),'Sign In')]")
         self._title = driver.title
 
     def validateSignInPageTitle(self):
@@ -37,7 +37,7 @@ class SignInPage(TestBase):
         self._submitButton.click()
 
     def invalidSignInMessage(self):
-        return self.driver.find_element(By.XPATH, "//div[contains(@class,'alert--error--3iAkS alert--_alert--1gt-I')]").text
+        return self.driver.find_element(By.XPATH, "//div[contains(@class,'alert_error__2FgfU alert__alert__1lOTi ')]").text
 
     def signInToUdacity(self):
         self._emailTextField.send_keys(self._user)

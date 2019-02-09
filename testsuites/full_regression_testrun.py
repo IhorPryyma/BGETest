@@ -39,4 +39,3 @@ if __name__ == "__main__":
     for line in result.failures:
         for info in line:
             log.error(str(info))
-
