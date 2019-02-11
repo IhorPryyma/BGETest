@@ -27,7 +27,6 @@ class SignUpPageTest(EnvironmentSetup):
         self.signUpPage.signUpToUdacity()
         with self.assertRaises(NoSuchElementException, msg="test_verifyValidSignUp Failed"):
             time.sleep(3)
-            self.screenshot.takeScreenShot(self.screenshotName)
             self.signUpPage.invalidRegistrationMessage()
 
     def test_verifySignUpWithInvalidEmail(self):

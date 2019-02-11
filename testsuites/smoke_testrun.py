@@ -1,6 +1,9 @@
 import logging
-import sys
 import unittest
+
+import sys,os
+sys.path.append(os.path.realpath('..'))
+
 import util.Logger as cl
 
 from scripts.ProfilePageTest import ProfilePageTest

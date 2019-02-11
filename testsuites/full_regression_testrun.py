@@ -1,12 +1,15 @@
 import logging
-import sys
 import unittest
-import util.Logger as cl
+
+import sys,os
+sys.path.append(os.path.realpath('..'))
 
 from scripts.ProfilePageTest import ProfilePageTest
 from scripts.HomePageTest import HomePageTest
 from scripts.SignInPageTest import SignInPageTest
 from scripts.SignUpPageTest import SignUpPageTest
+
+import util.Logger as cl
 
 log = cl.customLogger(logging.DEBUG)
 

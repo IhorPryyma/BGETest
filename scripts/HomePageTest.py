@@ -1,5 +1,7 @@
 import unittest
 
+from selenium.common.exceptions import NoSuchWindowException
+
 import util.Logger as cl
 import logging
 
@@ -20,7 +22,7 @@ class HomePageTest(EnvironmentSetup):
 
     def test_verifyHomePageTitle(self):
         title = self.homePage.validatHomePageTitle()
-        self.assertEqual(title, "Udacity - Free Online Classes & Nanodegrees | Udacity", msg="test_verifyHomePageTitle Failed")
+        self.assertTrue(title == "Udacity - Free Online Classes & Nanodegrees | Udacity", msg="test_verifyHomePageTitle Failed")
 
     def test_verifySignInIsDisplayed(self):
         self.assertTrue(self.homePage.getSignIn().is_displayed(), msg="test_verifySignInIsDisplayed Failed")

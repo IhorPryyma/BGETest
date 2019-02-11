@@ -24,8 +24,6 @@ class ProfilePageTest(EnvironmentSetup):
         self.assertEqual(title, "Home - Udacity", msg="test_verifyProfilePageTitle Failed")
 
     def test_verifyElementsOfProfilePage(self):
-        self.screenshot.takeScreenShot(self.screenshotName)
-
         self.assertTrue(self.profilePage.validateHomeLink(), msg="test_verifyElementsOfProfilePage Failed "
                                                                  ":: Home link not found")
         self.assertTrue(self.profilePage.validateCatalogLink(), msg="test_verifyElementsOfProfilePage Failed "

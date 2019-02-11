@@ -3,10 +3,14 @@ import unittest
 from properties.p import Property
 from selenium import webdriver
 
+from selenium.webdriver.support.event_firing_webdriver import EventFiringWebDriver
+
+
 import util.Logger as cl
 import logging
 
 from util.ScreenShot import ScreenShot
+from util.WebEventListener import WebEventListener
 
 
 class EnvironmentSetup(unittest.TestCase):
@@ -41,6 +45,9 @@ class EnvironmentSetup(unittest.TestCase):
             self.log.debug("Object for safari is created - " + str(self.driver))
         else:
             raise ValueError("Unknown browser, please check the config.properties file")
+
+        self.eventListener = WebEventListener()
+        self.driver = EventFiringWebDriver(self.driver, self.eventListener)
 
         self.driver.maximize_window()
         self.driver.delete_all_cookies()

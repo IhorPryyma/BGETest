@@ -35,7 +35,6 @@ class SignInPageTest(EnvironmentSetup):
         self.signInPage.setPassword(self.dic_prop.get("invalid_password", "unknown"))
         self.signInPage.clickSubmitButton()
         time.sleep(5)
-        self.screenshot.takeScreenShot(self.screenshotName)
         self.assertEqual(self.signInPage.invalidSignInMessage(), "The email or password you entered is invalid",
                          msg="test_verifyInvalidSignIn Failed")
 
