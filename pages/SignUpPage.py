@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.html5 import application_cache
 
 from base.TestBase import TestBase
 from pages.ProfilePage import ProfilePage
@@ -19,6 +20,7 @@ class SignUpPage(TestBase):
         self._newUser = UserGenerator()
 
         self._firstName = driver.find_element(By.XPATH, "//input[@placeholder='First Name']")
+        application_cache.ApplicationCache(self._firstName)
         self._lastName = driver.find_element(By.XPATH, "//input[@placeholder='Last Name']")
         self._email = driver.find_element(By.XPATH, "//input[@placeholder='Email Address']")
         self._password = driver.find_element(By.XPATH, "//input[@placeholder='Password']")
@@ -68,5 +70,8 @@ class SignUpPage(TestBase):
         self.log.debug("Registration textfields are successfully cleared.")
 
     def invalidRegistrationMessage(self):
-        return self.driver.find_element(By.XPATH, "//div[contains(@class,'alert_error__2FgfU alert__alert__1lOTi ')]").text
+        self.log.warning("!!!" + self.driver.find_element(By.XPATH, '//*[@id="root"]/div/div[2]/div/div/div/div[2]/div/div[2]/div/div').text)
+        return self.driver.find_element(By.XPATH, '//*[@id="root"]/div/div[2]/div/div/div/div[2]/div/div[2]/div/div').text
+
+
 
